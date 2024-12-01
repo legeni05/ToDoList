@@ -26,9 +26,11 @@ def format_datetime(value, format='%Y-%m-%d %H:%M:%S'):
     if value is None: return ""
     return value.strftime(format)
 
-# Page d'accueil
 @app.route('/')
 def index():
+    if 'username' in session:
+        username = session['username']
+        return render_template('index.html', username=username)
     return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -39,10 +41,18 @@ def login():
         password = form.password.data
         user = User.query.filter_by(username=username).first()
         if user and user.verify_password(password):
+            session['username'] = username
             return redirect(url_for('index'))
         else:
+            flash('Nom d\'utilisateur ou mot de passe incorrect', 'danger')
             return redirect(request.url)
     return render_template('login.html', form=form)
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    flash('Vous avez été déconnecté', 'success')
+    return redirect(url_for('login'))
 
 
 @app.route('/compteur')
@@ -54,15 +64,6 @@ def compteur():
     print(session)
     nombre_visites = session['compteur']
     return f"Vous avez visité la page {nombre_visites} fois"
-
-
-@app.route('/logout')
-def logout():
-    print(session)
-    session.pop('nom_utilisateur', None)
-    flash('Vous avez été déconnecté', 'success')
-    print(session)
-    return redirect(url_for('login'))
 
 # Route pour ajouter une tâche
 @app.route('/add', methods=['GET', 'POST'])

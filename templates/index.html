@@ -2,6 +2,7 @@
 
 {% block content %}
 <div>
-<h1>Bienvenue!!!</h1>
+    <h1>Accueil</h1>
+    <p>Bonjour {{ session['username']|title if session['username'] else 'Invité'}}, bienvenue!</p>
 </div>
 {% endblock %}
