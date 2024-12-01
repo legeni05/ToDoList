@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">Page de connexion</h1>
+    <form method="post" action="{{ url_for('login') }}">
+        <!-- Inclusion de la balise CSRF -->
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+            <label for="username" class="form-label">{{ form.username.label }}</label>
+            {{ form.username(class="form-control") }}
+            {% if form.username.errors %}
+            <div class="text-danger">
+                {% for error in form.username.errors %}
+                <small>{{ error }}</small>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">{{ form.password.label }}</label>
+            {{ form.password(class="form-control") }}
+            {% if form.password.errors %}
+            <div class="text-danger">
+                {% for error in form.password.errors %}
+                <small>{{ error }}</small>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <div>
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+</div>
+{% endblock %}
