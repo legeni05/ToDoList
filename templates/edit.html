@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<body>
+    <div class="container">
+        <h1 class="mt-5">Modifier la tâche</h1>
+        <form method="POST">
+            <div class="form-group">
+                <label for="title">Titre</label>
+                <input type="text" class="form-control" id="title" name="title" value="{{ task.title }}" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" name="description">{{ task.description }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" class="form-control" id="date" name="date" value="{{ task.date }}" required>
+            </div>
+            <div class="form-group">
+                <label for="time">Heure</label>
+                <input type="time" class="form-control" id="time" name="time" value="{{ task.time }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+        </form>
+    </div>
+</body>
+{% endblock %}

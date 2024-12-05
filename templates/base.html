@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}To-Do List{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Barre de navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{ url_for('index') }}">To-Do List</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    {% if session['username'] %}
+                    <a class="nav-link custom-nav-link" href="{{ url_for('index') }}">Accueil</a>
+                    {% else %}
+                     <a class="nav-link custom-nav-link" href="{{ url_for('login') }}">Accueil</a>
+                    {% endif %}
+                </li>
+                <li class="nav-item">
+                    {% if session['username'] %}
+                        <a class="nav-link custom-nav-link" href="{{ url_for('register') }}"></a>
+                    {% else %}
+                         <a class="nav-link custom-nav-link" href="{{ url_for('register') }}">Créer un compte</a>
+                    {% endif %}
+                </li>
+                <li class="nav-item">
+                    {% if session['username'] %}
+                        <a class="nav-link custom-nav-link" href="{{ url_for('logout') }}">Se déconnecter</a>
+                    {% else %}
+                        <a class="nav-link custom-nav-link" href="{{ url_for('login') }}">Se connecter </a>
+                    {% endif %}
+                </li>
+                <li class="nav-item">
+                    {% if session['username'] %}
+                        <a class="nav-link custom-nav-link" href="{{ url_for('list_tasks') }}">Liste des tâches</a>
+                    {% else %}
+                        <a class="nav-link custom-nav-link" href="{{ url_for('login') }}">Liste des tâches</a>
+                    {% endif %}
+                </li>
+                <li class="nav-item">
+                    {% if session['username'] %}
+                        <a class="nav-link custom-nav-link" href="{{ url_for('add_task') }}">Ajouter une tâche</a>
+                    {% else %}
+                         <a class="nav-link custom-nav-link" href="{{ url_for('login') }}">Ajouter une tâche</a>
+                    {% endif %}
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div>
+        {% if session['username'] %}
+            <h5 class="bg-vert">Vous êtes connecté {{ username }}</h5>
+        {% else %}
+            <h5 class="bg-rouge">Veuillez vous connecter d'abord</h5>
+        {% endif %}
+    </div>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+
+    <!-- Pied de page -->
+    <footer class="footer mt-auto py-3 bg-light text-dark">
+        <div class="container text-center">
+            <span class="text-muted">&copy; 2024 To-Do List. Tous droits réservés.</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

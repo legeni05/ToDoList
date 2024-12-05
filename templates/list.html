@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Liste des tâches{% endblock %}
+
+{% block content %}
+
+<div class="task-list">
+    <div>
+        <h3 class="fixed-heade">Liste des tâches</h3>
+    </div>
+    <ul class="list-group">
+        {% for task in tasks %}
+        <li class="list-group-item">
+            <h5>{{ task.title }}</h5>
+            <p>{{ task.description }}</p>
+            <p>{{ task.date }} à {{ task.time }}</p>
+            <a href="{{ url_for('edit_task', task_id=task.id) }}" class="btn btn-warning">Modifier</a>
+            <form action="{{ url_for('delete_task', task_id=task.id) }}" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-danger">Supprimer</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Voir la tâche</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">{{ task.title }}</h1>
+        <p>{{ task.description }}</p>
+        <p>{{ task.date }} à {{ task.time }}</p>
+        <a href="{{ url_for('edit_task', task_id=task.id) }}" class="btn btn-warning">Modifier</a>
+        <form action="{{ url_for('delete_task', task_id=task.id) }}" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-danger">Supprimer</button>
+        </form>
+        <a href="{{ url_for('list_tasks') }}" class="btn btn-secondary">Retour à la liste</a>
+    </div>
+</body>
+</html>
